@@ -5,6 +5,7 @@ const morgan = require('morgan')
 require('dotenv/config')
 
 // ! -- Routers/Controllers
+const authController = require('./controllers/auth.js')
 
 
 // ! -- Variables
@@ -14,10 +15,18 @@ const port = 3000
 // ! -- Middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"))
+app.use(express.static('public'))
 app.use(morgan('dev'))
 
-// * Landing Page
+// ! -- Route Handlers
+app.use('/auth', authController)
 
+// * Landing Page
+app.get('/', async (req, res) => {
+    res.render('index.ejs')
+  })
+
+// * Routers
 
 // ! -- Server Connections
 const startServers = async () => {
