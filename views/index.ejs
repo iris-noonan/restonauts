@@ -15,7 +15,7 @@
 
         <% if (user) { %>
           <a href="/auth/sign-out">Logout</a>
-          <a href="/auth/sign-in"><%= user.username %></a>
+          <a href="/auth/profile"><%= user.username %></a>
         <% } else { %>
           <a href="/auth/sign-in">Sign in</a>
           <a href="/auth/sign-up">Sign up</a>

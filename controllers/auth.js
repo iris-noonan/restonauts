@@ -70,5 +70,13 @@ router.get('/sign-out', (req, res) => {
   res.redirect("/")
 })
 
+router.get('/profile', (req, res) => {
+  if (req.session.user) {
+    res.render('auth/profile.ejs')
+  } else {
+    res.send("Sorry, no guests allowed.");
+  }
+});
+
 // ! Export the Router
 module.exports = router
