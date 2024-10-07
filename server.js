@@ -30,8 +30,9 @@ app.use('/auth', authController)
 
 // * Landing Page
 app.get('/', (req, res) => {
-    res.render('index.ejs')
-    user: req.session.user
+    res.render('index.ejs', {
+        user: req.session.user
+    })
   })
 
 // * Routers
