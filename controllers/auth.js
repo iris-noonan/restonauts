@@ -1,7 +1,11 @@
 const express = require('express')
+const bcrypt = require("bcrypt");
 
 // ! -- Router
 const router = express.Router()
+
+// ! Model
+const User = require('../models/user.js')
 
 // ! Routes/Controllers
 
@@ -11,6 +15,34 @@ const router = express.Router()
 router.get('/sign-up', (req, res) => {
     res.render('auth/sign-up.ejs')
   })
+
+// * -- Create User
+router.post('/sign-up', async (req, res) => {
+  // set default user role
+  req.body.role = 'user'
+  const userInDatabase = await User.findOne({ username: req.body.username })
+  if (userInDatabase) {
+    return res.send("Username already taken.")
+  }
   
+  if (req.body.password !== req.body.confirmPassword) {
+    return res.send("Password and Confirm Password must match")
+  }
+  const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+  req.body.password = hashedPassword
+
+  const user = await User.create(req.body)
+  res.send(`Thanks for signing up ${user.username}`)
+})
+  
+
+// * -- Sign In Form
+router.get('/sign-in', (req, res) => {
+  res.render('auth/sign-in.ejs')
+})
+
+// * -- Sign In User
+
+
 // ! Export the Router
 module.exports = router
