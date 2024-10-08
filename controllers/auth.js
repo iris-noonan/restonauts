@@ -32,9 +32,15 @@ router.post('/sign-up', async (req, res) => {
   req.body.password = hashedPassword
 
   const user = await User.create(req.body)
-  res.send(`Thanks for signing up ${user.username}`)
+  req.session.user = {
+    username: user.username,
+    _id: user._id
+  }
+
+  req.session.save(() => {
+    res.redirect('/')
+  })
 })
-  
 
 // * -- Sign In Form
 router.get('/sign-in', (req, res) => {
@@ -46,28 +52,32 @@ router.post('/sign-in', async (req, res) => {
   const userInDatabase = await User.findOne({ username: req.body.username })
   if (!userInDatabase) {
     return res.send('Login failed. Please try again.')
-}
+  }
   const validPassword = bcrypt.compareSync(
     req.body.password,
     userInDatabase.password
   )
   if (!validPassword) {
     return res.send('Login failed. Please try again.')
-}
+  }
 
-// Create session to sign the user in
+
+  // Create session to sign the user in
   req.session.user = {
     username: userInDatabase.username,
     _id: userInDatabase._id
   }
 
-  res.redirect('/')
+  req.session.save(() => {
+    res.redirect('/')
+  })
 })
 
 // * Sign Out Route
 router.get('/sign-out', (req, res) => {
-  req.session.destroy()
-  res.redirect("/")
+  req.session.destroy(() => {
+    res.redirect('/')
+  })
 })
 
 router.get('/profile', (req, res) => {

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
 const session = require('express-session')
+const MongoStore = require("connect-mongo")
 require('dotenv/config')
 
 // ! -- Routers/Controllers
@@ -22,6 +23,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+      })
     })
   )
 
@@ -36,7 +40,7 @@ app.get('/', (req, res) => {
   })
 
 
-  
+
 // * Routers
 
 // ! -- Server Connections
