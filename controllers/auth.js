@@ -7,6 +7,9 @@ const router = express.Router()
 // ! Model
 const User = require('../models/user.js')
 
+// ! Middleware Functions
+const isSignedIn = require('../middleware/is-signed-in.js')
+
 // ! Routes/Controllers
 
 // * -- Sign Up Form
@@ -80,12 +83,8 @@ router.get('/sign-out', (req, res) => {
   })
 })
 
-router.get('/profile', (req, res) => {
-  if (req.session.user) {
-    res.render('auth/profile.ejs')
-  } else {
-    res.send("Sorry, no guests allowed.");
-  }
+router.get('/profile', isSignedIn, (req, res) => {
+  res.render('auth/profile.ejs')
 });
 
 // ! Export the Router
