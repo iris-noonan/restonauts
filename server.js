@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
 const session = require('express-session')
-const MongoStore = require("connect-mongo")
+const MongoStore = require('connect-mongo')
+const passUserToView = require('./middleware/pass-user-to-view.js')
 require('dotenv/config')
 
 // ! -- Routers/Controllers
@@ -24,21 +25,18 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI
-      })
+      mongoUrl: process.env.MONGODB_URI
     })
-  )
+  }))
+app.use(passUserToView)
 
 // ! -- Route Handlers
 app.use('/auth', authController)
 
 // * Landing Page
 app.get('/', (req, res) => {
-    res.render('index.ejs', {
-        user: req.session.user
-    })
+    res.render('index.ejs')
   })
-
 
 
 // * Routers
