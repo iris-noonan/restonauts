@@ -65,6 +65,7 @@ app.get('/', async (req, res) => {
       restaurants = await Restaurant.find({country, city})
       cities = locations[country]
     }
+    mongoose.disconnect()
     return res.render('index.ejs', {
       restaurants,
       countries,
@@ -88,6 +89,7 @@ const startServers = async () => {
         // Database Connection
         await mongoose.connect(process.env.MONGODB_URI)
         console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
+
     } catch (error) {
         console.log(error)
     }
