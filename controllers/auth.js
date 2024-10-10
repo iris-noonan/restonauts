@@ -119,5 +119,24 @@ router.put('/profile', isSignedIn, async (req, res) => {
   }
 });
 
+router.delete('/profile', isSignedIn, async (req, res, next) => {
+  try {
+    console.log('huh')
+    const userInDatabase = await User.findOne({ username: req.body.username })
+    console.log('USER: ', userInDatabase)
+    if (!userInDatabase) return next()
+
+    if (userInDatabase._id.equals(req.session.user._id)) {
+      const deletedUser = await User.findByIdAndDelete(req.session.user._id)
+      req.session.destroy(() => {
+        res.redirect('/')
+      })
+    }
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send('<h1>An error occurred</h1>')
+  }
+})
+
 // ! Export the Router
 module.exports = router
