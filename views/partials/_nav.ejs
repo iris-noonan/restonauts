@@ -1,6 +1,9 @@
 <header class="header">
     <div>
-      <a href="/">Back</a>
+      <a href="/">Restaurants</a>
+    <% if (user?.role === 'admin') { %>
+        <a href="/restaurants/new">Add Restaurant</a>
+    <% } %>
     </div>
     <div>
 

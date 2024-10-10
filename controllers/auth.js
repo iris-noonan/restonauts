@@ -37,6 +37,7 @@ router.post('/sign-up', async (req, res) => {
   const user = await User.create(req.body)
   req.session.user = {
     username: user.username,
+    role: user.role,
     _id: user._id
   }
 
@@ -68,6 +69,7 @@ router.post('/sign-in', async (req, res) => {
   // Create session to sign the user in
   req.session.user = {
     username: userInDatabase.username,
+    role: userInDatabase.role,
     _id: userInDatabase._id
   }
 

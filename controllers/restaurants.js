@@ -23,6 +23,7 @@ router.get('/:restaurantId', async (req, res, next) => {
   try {
     if (mongoose.Types.ObjectId.isValid(req.params.restaurantId)) {
       const restaurant = await Restaurant.findById(req.params.restaurantId).populate('owner').populate('ratings.user')
+      console.log("REST: ", restaurant)
       if (!restaurant) return next()
       return res.render('restaurants/show.ejs', { restaurant })
     } else {
@@ -37,12 +38,13 @@ router.get('/:restaurantId', async (req, res, next) => {
 // * Create Route
 router.post('/', isSignedIn, async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.session.user._id)
     req.body.owner = req.session.user._id // Add the owner ObjectId using the authenticated user's _id (from the session)
+    console.log('BODY: ', req.body)
     const restaurant = await Restaurant.create(req.body)
     req.session.message = 'Restaurant created successfully'
     req.session.save(() => {
-      return res.redirect('/restaurants')
+      return res.redirect('/')
     })
   } catch (error) {
     console.log(error)
