@@ -5,13 +5,9 @@ const methodOverride = require('method-override')
 const morgan = require('morgan')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
-const passUserToView = require('../../middleware/pass-user-to-view.js')
-require('dotenv/config')
+
 
 // ! -- Routers/Controllers
-const restaurantsController = require('../../controllers/restaurants.js')
-const authController = require('../../controllers/auth.js')
-
 
 // ! -- Variables
 const app = express()
@@ -30,20 +26,10 @@ app.use(session({
       mongoUrl: process.env.MONGODB_URI
     })
   }))
-app.use(passUserToView)
 
 // ! -- Route Handlers
 
 // ! -- Model
-const Restaurant = require('../../models/restaurant.js')
-
-const locations = {
-  'UK': ['Hove', 'Brighton', 'London', 'Reading', 'Chichester'],
-  'Portugal': ['Sintra', 'Lisbon', 'Porto', 'Coimbra', 'Évora'],
-  'USA': ['New York', 'Chicago', 'Las Vegas', 'San Francisco', 'Los Angeles'],
-  'Denmark': ['Copenhagen', 'Aarhus', 'Esbjerg', 'Aalborg', 'Odense'],
-  'Japan': ['Tokyo', 'Kyoto', 'Osaka', 'Sapporo', 'Fukuoka'],
-}
 
 // * Landing Page
 app.get('/', async (req, res) => {
@@ -80,8 +66,7 @@ app.get('/', async (req, res) => {
 })
 
 // * Routers
-app.use('/restaurants', restaurantsController)
-app.use('/auth', authController)
+
 
 // ! -- Server Connections
 const startServers = async () => {
