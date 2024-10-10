@@ -47,31 +47,30 @@ const locations = {
 // * Landing Page
 app.get('/', async (req, res) => {
   try {
-    // const country = req.query.country
-    // const city = req.query.city
-    // const countries = []
-    // for (const country in locations) {
-    //   countries.push(country)
-    // }
-    // let cities = []
-    // let restaurants = []
-    // if (!country && !city) {
-    //   // restaurants = await Restaurant.find()
-    // } else if (country && !city) {
-    //   restaurants = await Restaurant.find({country})
-    //   cities = locations[country]
-    // } else {
-    //   restaurants = await Restaurant.find({country, city})
-    //   cities = locations[country]
-    // }
-    // return res.render('index.ejs', {
-    //   restaurants,
-    //   countries,
-    //   selectedCountry: country,
-    //   cities,
-    //   selectedCity: city,
-    // })
-    return res.render('index.ejs')
+    const country = req.query.country
+    const city = req.query.city
+    const countries = []
+    for (const country in locations) {
+      countries.push(country)
+    }
+    let cities = []
+    let restaurants = []
+    if (!country && !city) {
+      // restaurants = await Restaurant.find()
+    } else if (country && !city) {
+      restaurants = await Restaurant.find({country})
+      cities = locations[country]
+    } else {
+      restaurants = await Restaurant.find({country, city})
+      cities = locations[country]
+    }
+    return res.render('index.ejs', {
+      restaurants,
+      countries,
+      selectedCountry: country,
+      cities,
+      selectedCity: city,
+    })
   } catch (error) {
     console.log(error)
     return res.status(500).send('<h1>An error occurred.</h1>')
