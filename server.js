@@ -8,6 +8,7 @@ const passUserToView = require('./middleware/pass-user-to-view.js')
 require('dotenv/config')
 
 // ! -- Routers/Controllers
+const restaurantsController = require('./controllers/restaurants.js')
 const authController = require('./controllers/auth.js')
 
 
@@ -31,15 +32,54 @@ app.use(session({
 app.use(passUserToView)
 
 // ! -- Route Handlers
-app.use('/auth', authController)
+
+// ! -- Model
+const Restaurant = require('./models/restaurant.js')
+
+const locations = {
+  'UK': ['Hove', 'Brighton', 'London', 'Reading', 'Chichester'],
+  'Portugal': ['Sintra', 'Lisbon', 'Porto', 'Coimbra', 'Évora'],
+  'USA': ['New York', 'Chicago', 'Las Vegas', 'San Francisco', 'Los Angeles'],
+  'Denmark': ['Copenhagen', 'Aarhus', 'Esbjerg', 'Aalborg', 'Odense'],
+  'Japan': ['Tokyo', 'Kyoto', 'Osaka', 'Sapporo', 'Fukuoka'],
+}
 
 // * Landing Page
-app.get('/', (req, res) => {
-    res.render('index.ejs')
-  })
-
+app.get('/', async (req, res) => {
+  try {
+    const country = req.query.country
+    const city = req.query.city
+    const countries = []
+    for (const country in locations) {
+      countries.push(country)
+    }
+    let cities = []
+    let restaurants = {}
+    if (!country && !city) {
+      restaurants = await Restaurant.find()
+    } else if (country && !city) {
+      restaurants = await Restaurant.find({country})
+      cities = locations[country]
+    } else {
+      restaurants = await Restaurant.find({country, city})
+      cities = locations[country]
+    }
+    return res.render('index.ejs', {
+      restaurants,
+      countries,
+      selectedCountry: country,
+      cities,
+      selectedCity: city,
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send('<h1>An error occurred.</h1>')
+  }
+})
 
 // * Routers
+app.use('/restaurants', restaurantsController)
+app.use('/auth', authController)
 
 // ! -- Server Connections
 const startServers = async () => {

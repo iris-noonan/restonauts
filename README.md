@@ -1,3 +1,8 @@
 
 07/10
-- Finish the authentication part and then move to the main page view and start adding the countries, cities buttons and restaurants
+- Continue with the authentication model, views and controler.
+08/10
+- Finished authentication, added the models, created seeds, created query search for restaurants.
+09/10
+- Work on main page view, add country and city buttons to display selected restaurants and make a start on the individual restaurant page. Added ratings.
+-Error handling, need to do the profile page, edit and delete restaurant. styling.

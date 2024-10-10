@@ -7,22 +7,42 @@
     <link rel="stylesheet" href="/stylesheets/style.css"></link>
   </head>
   <body>
-    <header class="header">
-      <div>
-        <a href="/">Back</a>
-      </div>
-      <div>
-
-        <% if (user) { %>
-          <a href="/auth/sign-out">Logout</a>
-          <a href="/auth/profile"><%= user.username %></a>
-        <% } else { %>
-          <a href="/auth/sign-in">Sign in</a>
-          <a href="/auth/sign-up">Sign up</a>
-        <% } %>
-      </div>
-    </header>
+    <%- include('./partials/_nav') %>
     <h1>RESTONAUTS</h1>
     <h2>The homeworld of restaurant explorers</h2>
+    <h3>Countries</h3>
+    <%= selectedCountry %>
+    <div class="button-row">
+      <% countries.forEach(country => { %>
+        <a class="button" href="/?country=<%= country %>">
+          <%= country %>
+        </a>
+      <% }) %>
+    </div>
+    <h3>Cities</h3>
+    <%= selectedCity %>
+    <div class="button-row">
+      <% cities.forEach(city => { %>
+        <a class="button" href="/?country=<%= selectedCountry %>&city=<%= city %>">
+          <%= city %>
+        </a>
+      <% }) %>
+    </div>
+    <h3>Restaurants</h3>
+    <div class="card-row">
+      <% restaurants.forEach(restaurant => { %>
+          <a class="restaurant-item" href="/restaurants/<%=restaurant._id%>">
+            <div class="card" style="background: url(<%=restaurant.photo%>);">
+              <%= restaurant.name %>
+
+              Rating: 
+              <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
+              <% const length = restaurant.ratings.length %>
+              <% const average = total/length || 0 %>
+              <%=  parseFloat(average.toPrecision(2)) %>
+            </div>
+          </a>
+      <% }) %>
+    </div>
   </body>
 </html>

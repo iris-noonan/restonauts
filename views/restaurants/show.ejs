@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= restaurant.name %></title> <!-- Dynamic title based on restaurant name -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <%- include('../partials/_nav') %>
+    <main>
+      <h1><%= restaurant.name %></h1> <!-- Display restaurant name -->
+      <div class="rating">
+        Rating: 
+        <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
+        <% const length = restaurant.ratings.length %>
+        <% const average = total/length || 0 %>
+        <%=  parseFloat(average.toPrecision(2)) %>
+      </div>
+      <img src="<%= restaurant.photo %>" />
+
+      <p><%= restaurant.description %></p>
+      
+      <% if (user !== null && restaurant.owner._id.equals(user._id)) { %>
+        <p>You own this restaurant</p>
+        <div class="restaurant-btns">
+          <!-- Form to delete restaurant -->
+          <form class="btn-form" action="/restaurants/<%= restaurant._id %>?_method=DELETE" method="POST">
+            <button class="btn delete" type="submit">Delete <%= restaurant.name %></button>
+          </form>
+    
+          <!-- Link to edit form -->
+          <a class="btn edit" href="/restaurants/<%= restaurant._id %>/edit">Edit <%= restaurant.name %></a>
+        </div>
+      <% } %>
+
+      <!-- rating Section -->
+      <h2>ratings</h2>
+
+      <!-- Display ratings -->
+      <% if (restaurant.ratings.length > 0) { %>
+        <div class="ratings">
+          <% restaurant.ratings.forEach(rating => { %>
+            <div class="rating">
+              <p>
+                <strong><%= rating.user.username %></strong> <small><%= new Date(rating.createdAt).toDateString() %></small><br>
+                <%= rating.comment %>
+                <%= rating.score %>
+              </p>
+              <% if (user && rating.user._id.equals(user._id)) { %>
+                <form class="form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
+                    <label for="score">Score:</label>
+                    <input type="text" name="score" id="score"><%= rating.score %></textarea>
+                    <label for="name">Comment:</label>
+                    <input type="text" name="comment" id="comment" value="<%= rating.comment %>" />
+                
+                    <button class="btn" type="submit">Edit</button>
+                </form>
+                <form action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=DELETE" method="POST">
+                  <button type="submit">🗑️</button>
+                </form>
+              <% } %>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <p>There are no ratings yet.</p>
+      <% } %>
+
+      <!-- Create Rating -->
+      <% if (user) { %>
+        <form class="form" action="/restaurants/<%= restaurant._id %>/ratings" method="POST">
+          <label for="text">Text:</label>
+          <input type="text" name="score" id="score">
+          <input type="text" name="comment" id="comment">
+          <button class="btn" type="submit">Add Rating</button>
+        </form>
+      <% } else { %>
+        <p><a class="link" href="/auth/sign-in">Sign in</a> to leave a rating</p>
+      <% } %>
+
+      <!-- Link to index -->
+      <a class="link" href="/">Back to Restaurants</a>
+    </main>
+  </body>
+</html>

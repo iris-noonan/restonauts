@@ -14,7 +14,7 @@ h1 {
   color: rgb(2, 137, 158);
   font-family: "Sixtyfour Convergence", sans-serif;
   font-size: 3.5em;
-  margin: 150px 50px 25px;
+  margin: 150px 0 25px;
 }
 
 h2 {
@@ -24,4 +24,29 @@ h2 {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.button-row {
+  display: flex;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 180px;
+}
+
+.card-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 18px;
+}
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  width: 180px;
+  height: 180px;
 }
