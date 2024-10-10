@@ -9,7 +9,17 @@
   <body>
     <%- include('../partials/_nav') %>
     <h1>Profile</h1>
-    <form action="/auth/sign-in" method="POST">
+    <form action="/auth/profile=PUT" method="POST">
+        <label for="name">Name:</label>
+        <%= user.username %>
+        <label for="name">Current Password:</label>
+        <input type="text" name="currentPassword" id="currentPassword" />
+        <label for="name">New Password:</label>
+        <input type="text" name="newPassword" id="newPassword" />
+        <label for="name">New Password Confirm:</label>
+        <input type="text" name="newPasswordConfirm" id="newPasswordConfirm" />
+    
+        <button type="submit">Edit Profile</button>
     </form>
   </body>
 </html>

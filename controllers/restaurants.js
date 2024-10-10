@@ -145,8 +145,9 @@ router.put('/:restaurantId/ratings/:ratingId', isSignedIn, async (req, res, next
       const ratingToUpdate = restaurantToUpdate.ratings.id(req.params.ratingId)
       if (!ratingToUpdate) return next()
       
-      ratingToUpdate.score = req.body.score
-      ratingToUpdate.comment = req.body.comment
+    //   ratingToUpdate.score = req.body.score
+    //   ratingToUpdate.comment = req.body.comment
+      Object.assign(ratingToUpdate, req.body)
 
       restaurantToUpdate.save()
       return res.redirect(`/restaurants/${req.params.restaurantId}`)

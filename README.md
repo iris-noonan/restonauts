@@ -4,5 +4,5 @@
 08/10
 - Finished authentication, added the models, created seeds, created query search for restaurants.
 09/10
-- Work on main page view, add country and city buttons to display selected restaurants and make a start on the individual restaurant page. Added ratings.
--Error handling, need to do the profile page, edit and delete restaurant. styling.
+- Worked on main page view, added the country and city buttons to display selected restaurants and worked on the individual restaurant page. Added ratings, including edit or delete a rating for a signed in user. Moved nav into a partial.
+- Need to work on the user profile page including edit password and delete account. Need to work on add, edit and delete restaurant for the admin user. Error handling. Styling in general.
