@@ -5,7 +5,7 @@ const methodOverride = require('method-override')
 const morgan = require('morgan')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
-const passUserToView = require('./middleware/pass-user-to-view.js')
+const passUserToView = require('../../middleware/pass-user-to-view.js')
 require('dotenv/config')
 
 // ! -- Routers/Controllers
@@ -20,7 +20,7 @@ const port = 3000
 // ! -- Middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"))
-app.use(express.static('public'))
+app.use(git('public'))
 app.use(morgan('dev'))
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -35,7 +35,7 @@ app.use(passUserToView)
 // ! -- Route Handlers
 
 // ! -- Model
-const Restaurant = require('./models/restaurant.js')
+const Restaurant = require('../../models/restaurant.js')
 
 const locations = {
   'UK': ['Hove', 'Brighton', 'London', 'Reading', 'Chichester'],
