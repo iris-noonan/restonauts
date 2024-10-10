@@ -55,9 +55,9 @@ app.get('/', async (req, res) => {
       countries.push(country)
     }
     let cities = []
-    let restaurants = {}
+    let restaurants = []
     if (!country && !city) {
-      restaurants = await Restaurant.find()
+    //   restaurants = await Restaurant.find()
     } else if (country && !city) {
       restaurants = await Restaurant.find({country})
       cities = locations[country]
