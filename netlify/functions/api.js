@@ -20,7 +20,7 @@ const port = 3000
 // ! -- Middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride("_method"))
-app.use(git('public'))
+app.use(express.static('public'))
 app.use(morgan('dev'))
 app.use(session({
     secret: process.env.SESSION_SECRET,
