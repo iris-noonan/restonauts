@@ -89,5 +89,35 @@ router.get('/profile', isSignedIn, (req, res) => {
   res.render('auth/profile.ejs')
 });
 
+router.put('/profile', isSignedIn, async (req, res) => {
+  try {
+    const userInDatabase = await User.findOne({ username: req.body.username })
+    if (!userInDatabase) {
+      return res.send('User not found')
+    }
+    const validPassword = bcrypt.compareSync(
+      req.body.currentPassword,
+      userInDatabase.password
+    )
+    if (!validPassword) {
+      return res.send('Current password is not valid')
+    }
+  
+    if (req.body.newPassword !== req.body.newPasswordConfirm) {
+      return res.send("New Password and Confirm Password must match")
+    }
+    const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10)
+  
+    userInDatabase.password = hashedPassword
+  
+    await userInDatabase.save()
+
+    return res.redirect('/')
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send('<h1>An error occurred.</h1>')
+  }
+});
+
 // ! Export the Router
 module.exports = router
