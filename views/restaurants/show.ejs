@@ -63,7 +63,7 @@
                 <label for="comment">Comment:</label>
                 <%= rating.comment %>
               </p>
-              <% if (user && rating.user._id.equals(user._id)) { %>
+              <% if (user && user.role !== 'admin' && rating.user._id.equals(user._id)) { %>
                 <form class="form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
                     <label for="score">Score:</label>
                     <span class="star-rating star-5">
@@ -90,7 +90,7 @@
       <% } %>
 
       <!-- Create Rating -->
-      <% if (user) { %>
+      <% if (user && user.role !== 'admin') { %>
         <form class="form" action="/restaurants/<%= restaurant._id %>/ratings" method="POST">
           <label for="javascript">Score</label>
           <span class="star-rating star-5">

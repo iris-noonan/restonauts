@@ -39,7 +39,6 @@ router.get('/:restaurantId', async (req, res, next) => {
 // * Create Route
 router.post('/', upload.single('photo'), isSignedIn, async (req, res) => {
   try {
-    console.log(req.session.user._id)
     req.body.photo = req.file.path
     req.body.owner = req.session.user._id // Add the owner ObjectId using the authenticated user's _id (from the session)
 
@@ -64,7 +63,7 @@ router.delete('/:restaurantId', async (req, res) => {
 
     if (restaurantToDelete.owner.equals(req.session.user._id)) {
       const deletedRestaurant = await Restaurant.findByIdAndDelete(req.params.restaurantId)
-      return res.redirect('/restaurants')
+      return res.redirect('/')
     }
 
     throw new Error('User is not authorised to perform this action')
@@ -119,6 +118,7 @@ router.put('/:restaurantId', upload.single('photo'), isSignedIn, async (req, res
 // * -- Create Rating
 router.post('/:restaurantId/ratings', async (req, res, next) => {
   try {
+    if (req.session.user.role === 'admin') return next()
 
     // Add signed in user id to the user field
     req.body.user = req.session.user._id
@@ -146,6 +146,8 @@ router.post('/:restaurantId/ratings', async (req, res, next) => {
 // * -- Edit Rating
 router.put('/:restaurantId/ratings/:ratingId', isSignedIn, async (req, res, next) => {
     try {
+      if (req.session.user.role === 'admin') return next()
+
       const restaurantToUpdate = await Restaurant.findById(req.params.restaurantId)
       if (!restaurantToUpdate) return next()
 
