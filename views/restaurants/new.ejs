@@ -8,28 +8,35 @@
 </head>
 <body>
   <%- include('../partials/_nav') %>
-  <h1>Create a New Restaurant!</h1>
-  <form action="/restaurants" method="POST" enctype="multipart/form-data">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" />
+  <main class="page-restaurant">
+    <form action="/restaurants" method="POST" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input class="input-name" type="text" name="name" id="name" />
 
-    <label for="country">Country:</label>
-    <input type="text" name="country" id="country" />
+      <label for="address">Address:</label>
+      <input class="input-address" type="text" name="address" id="address" />
 
-    <label for="city">City:</label>
-    <input type="text" name="city" id="city" />
+      <div class="restaurant-detailis">
+        <div class="restaurant-photo-area">
+          <input type="file" name="photo" id="photo" accept="image/*"/>
+        </div>
+        <div class="restaurant-description">
 
-    <label for="photo">Photo:</label>
-    <input type="file" name="photo" id="photo" accept="image/*"/>
+          <label for="description">Description:</label>
+          <textarea rows="5" name="description" id="description"></textarea>
 
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" />
+          <label for="country">Country:</label>
+          <input type="text" name="country" id="country" />
 
-    <label for="address">Address:</label>
-    <input type="text" name="address" id="address" />
+          <label for="city">City:</label>
+          <input type="text" name="city" id="city" />
+        </div>
+      </div>
 
-    <button type="submit">Add Restaurant</button>
-  </form>
-  <a href="/restaurants/">Back to Restaurants</a>
+      <div class="rating-form-button">
+        <button class="btn" type="submit">Add Restaurant</button>
+      </div>
+    </form>
+  </main>
 </body>
 </html>

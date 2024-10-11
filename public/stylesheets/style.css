@@ -14,16 +14,43 @@ h1 {
   color: rgb(2, 137, 158);
   font-family: "Sixtyfour Convergence", sans-serif;
   font-size: 3.5em;
-  margin: 150px 0 25px;
+  margin-bottom: 0;
 }
 
 h2 {
   color: rgb(2, 137, 158);
 }
+
+h3 {
+  color: rgb(2, 137, 158);
+}
+
+h4 {
+  margin-bottom: 0;
+}
+
+.btn {
+  background: rgb(2, 137, 158);
+	color: #fff;
+	border: 3px solid rgb(2, 137, 158);
+  border-radius: 12px;
+	padding: 8px 18px;
+	font: inherit;
+	cursor: pointer;
+  text-decoration: none;
+	outline: inherit;
+  margin-bottom: 18px;
+}
+
+.btn:hover {
+  background: rgba(2, 137, 158, 0.4);
+}
+
 .header {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: baseline;
   margin: 18px;
 }
 
@@ -34,16 +61,26 @@ h2 {
   padding: 12px
 }
 
-.header-left {
+.header-left,
+.header-right {
   padding: 12px;
 }
 
+.header-restaurants {
+  font-weight: 600;
+  font-size: 34px;
+}
+
+.restaurants-title {
+  margin: 150px 0 25px;
+}
 
 .button-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 18px;
 }
+
 .button {
   display: flex;
   justify-content: center;
@@ -70,6 +107,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 18px;
+  margin-bottom: 88px;
 }
 
 .card {
@@ -93,6 +131,109 @@ h2 {
   font-size: 22px;
 }
 
+.page-restaurant {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurant-btns {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.restaurant-detailis {
+  display: flex;
+}
+
+.restaurant-photo {
+  border-radius: 22px;
+}
+
+.restaurant-photo-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 16 / 9;
+  width: 440px;
+  border-radius: 22px;
+  border: 3px solid rgb(2, 137, 158);
+}
+
+.restaurant-description {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 28px;
+}
+
+.restaurant-ratings {
+  width: 100%;
+}
+
+.rating {
+  margin-bottom: 24px;
+}
+
+.rating-title {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.btn-trash {
+  background: none;
+}
+
+.rating-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 24px;
+  border: 2px solid rgb(2, 137, 158);
+  border-radius: 12px;
+}
+
+.rating-form-element {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.rating-form-button {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 0 100%;
+}
+
+input[type=text],
+input[type=password],
+textarea {
+  border-radius: 12px;
+  padding: 8px 12px;
+  border: 2px solid rgb(2, 137, 158);
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+textarea {
+  text-align: left;
+}
+
+input[type=text].input-name {
+  text-align: center;
+  font-size: 48px;
+  width: 100%;
+}
+
+input[type=text].input-address {
+  text-align: center;
+  font-size: 24px;
+  width: 100%;
+}
+
 .card-rating {
   text-decoration: none;
   font-size: 16px;
@@ -108,6 +249,7 @@ h2 {
   background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
   background-size: contain;
 }
+
 .star-rating i {
   opacity: 0;
   position: absolute;
@@ -119,6 +261,7 @@ h2 {
   background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
   background-size: contain;
 }
+
 .star-rating input {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -131,22 +274,28 @@ h2 {
   z-index: 2;
   position: relative;
 }
+
 .star-rating input:hover + i,
 .star-rating input:checked + i {
   opacity: 1;
 }
+
 .star-rating i ~ i {
   width: 40%;
 }
+
 .star-rating i ~ i ~ i {
   width: 60%;
 }
+
 .star-rating i ~ i ~ i ~ i {
   width: 80%;
 }
+
 .star-rating i ~ i ~ i ~ i ~ i {
   width: 100%;
 }
+
 ::after,
 ::before {
   height: 100%;
@@ -165,9 +314,6 @@ h2 {
 .star-rating.star-5 i ~ i ~ i ~ i {width: 80%;}
 .star-rating.star-5 i ~ i ~ i ~ i ~i {width: 100%;}
 
-
-
-
 .star-rating-show {
   font-size: 0;
   white-space: nowrap;
@@ -178,6 +324,7 @@ h2 {
   background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
   background-size: contain;
 }
+
 .star-rating-show i {
   opacity: 0;
   position: absolute;
@@ -188,21 +335,27 @@ h2 {
   background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
   background-size: contain;
 }
+
 .checked {
   opacity: 1 !important;
 }
+
 .star-rating-show i ~ i {
   width: 40%;
 }
+
 .star-rating-show i ~ i ~ i {
   width: 60%;
 }
+
 .star-rating-show i ~ i ~ i ~ i {
   width: 80%;
 }
+
 .star-rating-show i ~ i ~ i ~ i ~ i {
   width: 100%;
 }
+
 ::after,
 ::before {
   height: 100%;

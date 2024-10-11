@@ -8,30 +8,39 @@
 </head>
 <body>
   <%- include('../partials/_nav') %>
-  <h1>Edit a Restaurant!</h1>
-  <form action="/restaurants/<%=restaurant._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" value="<%= restaurant.name %>" />
+  <main class="page-restaurant">
+    <form action="/restaurants/<%=restaurant._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input class="input-name" type="text" name="name" id="name" value="<%= restaurant.name %>" />
 
-    <label for="country">Country:</label>
-    <input type="text" name="country" id="country" value="<%= restaurant.country %>" />
+      <label for="address">Address:</label>
+      <input class="input-address" type="text" name="address" id="address" value="<%= restaurant.address %>" />
 
-    <label for="city">City:</label>
-    <input type="text" name="city" id="city" value="<%= restaurant.city %>" />
+      <label for="photo">New Photo:</label>
+      <input type="file" name="photo" id="photo" accept="image/*" />
+      <input type="hidden" name="photoPath" id="photoPath" value="<%= restaurant.photo %>" />
 
-    <label for="photo">Photo:</label>
-    <img src="<%= restaurant.photo %>" width="40px"/>
-    <input type="hidden" name="photoPath" id="photoPath" value="<%= restaurant.photo %>" />
-    <input type="file" name="photo" id="photo" accept="image/*" />
+      <div class="restaurant-detailis">
+        <img class="restaurant-photo" src="<%= restaurant.photo %>" width="440px"/>
+        <div class="restaurant-description">
 
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" value="<%= restaurant.description %>" />
+          <label for="description">Description:</label>
+          <textarea rows="5" name="description" id="description">
+            <%= restaurant.description %>
+          </textarea>
 
-    <label for="address">Address:</label>
-    <input type="text" name="address" id="address" value="<%= restaurant.address %>" />
+          <label for="country">Country:</label>
+          <input type="text" name="country" id="country" value="<%= restaurant.country %>" />
 
-    <button type="submit">Edit Restaurant</button>
-  </form>
-  <a href="/restaurants/">Back to Restaurants</a>
+          <label for="city">City:</label>
+          <input type="text" name="city" id="city" value="<%= restaurant.city %>" />
+        </div>
+      </div>
+
+      <div class="rating-form-button">
+        <button class="btn" type="submit">Save</button>
+      </div>
+    </form>
+  </main>
 </body>
 </html>
