@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const express = require('express')
+const upload = require('../middleware/image-upload.js')
 
 // ! -- Router
 const router = express.Router()
@@ -36,9 +37,10 @@ router.get('/:restaurantId', async (req, res, next) => {
 })
 
 // * Create Route
-router.post('/', isSignedIn, async (req, res) => {
+router.post('/', upload.single('photo'), isSignedIn, async (req, res) => {
   try {
     console.log(req.session.user._id)
+    req.body.photo = req.file.path
     req.body.owner = req.session.user._id // Add the owner ObjectId using the authenticated user's _id (from the session)
     console.log('BODY: ', req.body)
     const restaurant = await Restaurant.create(req.body)
@@ -91,10 +93,14 @@ router.get('/:restaurantId/edit', isSignedIn, async (req, res, next) => {
   }
 })
 
-router.put('/:restaurantId', isSignedIn, async (req, res) => {
+router.put('/:restaurantId', upload.single('photo'), isSignedIn, async (req, res) => {
   try {
     const restaurantToUpdate = await Restaurant.findById(req.params.restaurantId)
-    
+    if (req.file?.path) {
+        req.body.photo = req.file.path
+    } else {
+        req.body.photo = req.body.photoPath
+    }
     if (restaurantToUpdate.owner.equals(req.session.user._id)) {
       const updatedRestaurant = await Restaurant.findByIdAndUpdate(req.params.restaurantId, req.body, { new: true })
       return res.redirect(`/restaurants/${req.params.restaurantId}`)

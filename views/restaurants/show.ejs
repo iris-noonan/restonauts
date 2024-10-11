@@ -11,13 +11,21 @@
     <main>
       <h1><%= restaurant.name %></h1> <!-- Display restaurant name -->
       <div class="rating">
-        Rating: 
+        Rating:
         <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
         <% const length = restaurant.ratings.length %>
         <% const average = total/length || 0 %>
+        <% const roundedScore = Math.floor(average) %>
+        <span class="star-rating-show star-5">
+            <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
+        </span>
         <%=  parseFloat(average.toPrecision(2)) %>
       </div>
-      <img src="<%= restaurant.photo %>" />
+      <img src="<%= restaurant.photo %>" width="400px"/>
 
       <p><%= restaurant.description %></p>
       
@@ -44,13 +52,28 @@
             <div class="rating">
               <p>
                 <strong><%= rating.user.username %></strong> <small><%= new Date(rating.createdAt).toDateString() %></small><br>
+                <label for="score">Score:</label>
+                <span class="star-rating-show star-5">
+                    <i class="<% if (rating.score === 1) { %>checked<% } %>"></i>
+                    <i class="<% if (rating.score === 2) { %>checked<% } %>"></i>
+                    <i class="<% if (rating.score === 3) { %>checked<% } %>"></i>
+                    <i class="<% if (rating.score === 4) { %>checked<% } %>"></i>
+                    <i class="<% if (rating.score === 5) { %>checked<% } %>"></i>
+                </span>
+                <label for="comment">Comment:</label>
                 <%= rating.comment %>
-                <%= rating.score %>
               </p>
               <% if (user && rating.user._id.equals(user._id)) { %>
                 <form class="form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
                     <label for="score">Score:</label>
                     <input type="text" name="score" id="score" value="<%= rating.score %>" />
+                    <span class="star-rating star-5">
+                        <input type="radio" id="1" name="score" <% if (rating.score === 1) { %>checked<% } %> value="1"><i></i>
+                        <input type="radio" id="2" name="score" <% if (rating.score === 2) { %>checked<% } %> value="2"><i></i>
+                        <input type="radio" id="3" name="score" <% if (rating.score === 3) { %>checked<% } %> value="3"><i></i>
+                        <input type="radio" id="4" name="score" <% if (rating.score === 4) { %>checked<% } %> value="4"><i></i>
+                        <input type="radio" id="5" name="score" <% if (rating.score === 5) { %>checked<% } %> value="5"><i></i>
+                    </span>
                     <label for="name">Comment:</label>
                     <input type="text" name="comment" id="comment" value="<%= rating.comment %>" />
                 
@@ -70,8 +93,15 @@
       <!-- Create Rating -->
       <% if (user) { %>
         <form class="form" action="/restaurants/<%= restaurant._id %>/ratings" method="POST">
-          <label for="text">Text:</label>
-          <input type="text" name="score" id="score">
+          <label for="javascript">Score</label>
+          <span class="star-rating star-5">
+            <input type="radio" id="1" name="score" value="1"><i></i>
+            <input type="radio" id="2" name="score" value="2"><i></i>
+            <input type="radio" id="3" name="score" value="3"><i></i>
+            <input type="radio" id="4" name="score" value="4"><i></i>
+            <input type="radio" id="5" name="score" value="5"><i></i>
+          </span>
+          <label for="javascript">Comment</label>
           <input type="text" name="comment" id="comment">
           <button class="btn" type="submit">Add Rating</button>
         </form>

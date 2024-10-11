@@ -11,19 +11,17 @@
     <h1>RESTONAUTS</h1>
     <h2>The homeworld of restaurant explorers</h2>
     <h3>Countries</h3>
-    <%= selectedCountry %>
     <div class="button-row">
       <% countries.forEach(country => { %>
-        <a class="button" href="/?country=<%= country %>">
+        <a class="button <% if(selectedCountry === country) {%>active<% } %>" href="/?country=<%= country %>">
           <%= country %>
         </a>
       <% }) %>
     </div>
     <h3>Cities</h3>
-    <%= selectedCity %>
     <div class="button-row">
       <% cities.forEach(city => { %>
-        <a class="button" href="/?country=<%= selectedCountry %>&city=<%= city %>">
+        <a class="button <% if(selectedCity === city) {%>active<% } %>" href="/?country=<%= selectedCountry %>&city=<%= city %>">
           <%= city %>
         </a>
       <% }) %>
@@ -32,14 +30,21 @@
     <div class="card-row">
       <% restaurants.forEach(restaurant => { %>
           <a class="restaurant-item" href="/restaurants/<%=restaurant._id%>">
-            <div class="card" style="background: url(<%=restaurant.photo%>);">
-              <%= restaurant.name %>
-
-              Rating: 
-              <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
-              <% const length = restaurant.ratings.length %>
-              <% const average = total/length || 0 %>
-              <%=  parseFloat(average.toPrecision(2)) %>
+            <div class="card" style="background: url(<%=restaurant.photo%>); background-size: cover;">
+              <div class="card-name"><%= restaurant.name %></div>
+              <div class="card-rating">
+                <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
+                <% const length = restaurant.ratings.length %>
+                <% const average = total/length || 0 %>
+                <% const roundedScore = Math.floor(average) %>
+                <span class="star-rating-show star-5">
+                    <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
+                    <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
+                    <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
+                    <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
+                    <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
+                </span>
+              </div>
             </div>
           </a>
       <% }) %>

@@ -9,7 +9,7 @@
 <body>
   <%- include('../partials/_nav') %>
   <h1>Edit a Restaurant!</h1>
-  <form action="/restaurants/<%=restaurant._id%>?_method=PUT" method="POST">
+  <form action="/restaurants/<%=restaurant._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
     <label for="name">Name:</label>
     <input type="text" name="name" id="name" value="<%= restaurant.name %>" />
 
@@ -20,7 +20,9 @@
     <input type="text" name="city" id="city" value="<%= restaurant.city %>" />
 
     <label for="photo">Photo:</label>
-    <input type="text" name="photo" id="photo" value="<%= restaurant.photo %>" />
+    <img src="<%= restaurant.photo %>" width="40px"/>
+    <input type="hidden" name="photoPath" id="photoPath" value="<%= restaurant.photo %>" />
+    <input type="file" name="photo" id="photo" accept="image/*" />
 
     <label for="description">Description:</label>
     <input type="text" name="description" id="description" value="<%= restaurant.description %>" />
