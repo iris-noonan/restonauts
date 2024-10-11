@@ -9,9 +9,8 @@
   <body>
     <%- include('../partials/_nav') %>
     <h1>Profile</h1>
-    <form action="/auth/profile?_method=PUT" method="POST">
-        <label for="name">Name:</label>
-        <%= user.username %>
+    <form class="form-auth" action="/auth/profile?_method=PUT" method="POST">
+        <h2>Username: <%= user.username %></h2>
         <input type="hidden" id="username" name="username" value="<%= user.username %>">
         <label for="name">Current Password:</label>
         <input type="password" name="currentPassword" id="currentPassword" />
@@ -20,11 +19,11 @@
         <label for="name">Confirm New Password:</label>
         <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" />
     
-        <button type="submit">Edit Profile</button>
+        <button class="btn auth-button" type="submit">Save</button>
     </form>
 
     <!-- Form to delete user -->
-    <form class="btn-form" action="/auth/profile?_method=DELETE" method="POST">
+    <form action="/auth/profile?_method=DELETE" method="POST">
         <input type="hidden" id="username" name="username" value="<%= user.username %>">
         <button class="btn delete" type="submit">Delete Account</button>
     </form>

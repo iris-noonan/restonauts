@@ -38,7 +38,7 @@
               <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
             </span>
             <br />
-            <%= total %> reviews
+            <%= length %> reviews
           </div>
           <h4>Description:</h4>
           <p><%= restaurant.description %></p>
@@ -53,7 +53,7 @@
         <% if (restaurant.ratings.length > 0) { %>
           <div class="ratings">
             <% restaurant.ratings.forEach(rating => { %>
-              <% if (user && !rating.user._id.equals(user._id)) { %>
+              <% if (!rating.user._id.equals(user?._id)) { %>
                 <div class="rating">
                   <strong class="rating-title"><%= rating.user.username %></strong>
                   <span class="star-rating-show star-5">
