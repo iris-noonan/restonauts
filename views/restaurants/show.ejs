@@ -23,7 +23,7 @@
       <h1><%= restaurant.name %></h1>
       <h3><%= restaurant.address %></h3>
       <div class="restaurant-detailis">
-        <img class="restaurant-photo" src="<%= restaurant.photo %>" width="440px"/>
+        <img class="restaurant-photo" src="<%= restaurant.photo %>" width="440px" alt="Photo of <%= restaurant.name %> restaurant" />
         <div class="restaurant-description">
           <div class="rating">
             <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
