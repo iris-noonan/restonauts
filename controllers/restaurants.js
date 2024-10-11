@@ -24,7 +24,7 @@ router.get('/:restaurantId', async (req, res, next) => {
   try {
     if (mongoose.Types.ObjectId.isValid(req.params.restaurantId)) {
       const restaurant = await Restaurant.findById(req.params.restaurantId).populate('owner').populate('ratings.user')
-      console.log("REST: ", restaurant)
+
       if (!restaurant) return next()
       return res.render('restaurants/show.ejs', { restaurant })
     } else {
@@ -42,7 +42,7 @@ router.post('/', upload.single('photo'), isSignedIn, async (req, res) => {
     console.log(req.session.user._id)
     req.body.photo = req.file.path
     req.body.owner = req.session.user._id // Add the owner ObjectId using the authenticated user's _id (from the session)
-    console.log('BODY: ', req.body)
+
     const restaurant = await Restaurant.create(req.body)
     req.session.message = 'Restaurant created successfully'
     req.session.save(() => {

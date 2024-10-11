@@ -122,8 +122,6 @@ router.put('/profile', isSignedIn, async (req, res) => {
 
 router.delete('/profile', isSignedIn, async (req, res, next) => {
   try {
-    console.log('huh')
-
     const restaurants = await Restaurant.find({ 'ratings.user': req.session.user._id })
 
     for (let restaurant of restaurants) {
@@ -132,7 +130,7 @@ router.delete('/profile', isSignedIn, async (req, res, next) => {
     } 
 
     const userInDatabase = await User.findOne({ username: req.body.username })
-    console.log('USER: ', userInDatabase)
+
     if (!userInDatabase) return next()
 
     if (userInDatabase._id.equals(req.session.user._id)) {

@@ -84,10 +84,8 @@ app.use('/auth', authController)
 
 // ! -- Server Connections
 const startServers = async () => {
-    console.log('server start')
     try {
         // Database Connection
-        console.log('Mongoose Start')
         await mongoose.connect(process.env.MONGODB_URI)
         console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
 
