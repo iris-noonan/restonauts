@@ -56,7 +56,7 @@ app.get('/', async (req, res) => {
     let cities = []
     let restaurants = []
     if (!country && !city) {
-      // restaurants = await Restaurant.find()
+      restaurants = await Restaurant.find()
     } else if (country && !city) {
       restaurants = await Restaurant.find({country})
       cities = locations[country]
@@ -71,7 +71,7 @@ app.get('/', async (req, res) => {
       cities,
       selectedCity: city,
     })
-    
+
   } catch (error) {
     console.log(error)
     return res.status(500).send('<h1>An error occurred.</h1>')
