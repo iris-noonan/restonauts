@@ -6,6 +6,7 @@ const router = express.Router()
 
 // ! Model
 const User = require('../models/user.js')
+const Restaurant = require('../models/restaurant.js')
 
 // ! Middleware Functions
 const isSignedIn = require('../middleware/is-signed-in.js')
@@ -122,12 +123,20 @@ router.put('/profile', isSignedIn, async (req, res) => {
 router.delete('/profile', isSignedIn, async (req, res, next) => {
   try {
     console.log('huh')
+
+    const restaurants = await Restaurant.find({ 'ratings.user': req.session.user._id })
+
+    for (let restaurant of restaurants) {
+      restaurant.ratings = restaurant.ratings.filter(rating => !rating.user.equals(req.session.user._id))
+      await restaurant.save()
+    } 
+
     const userInDatabase = await User.findOne({ username: req.body.username })
     console.log('USER: ', userInDatabase)
     if (!userInDatabase) return next()
 
     if (userInDatabase._id.equals(req.session.user._id)) {
-      const deletedUser = await User.findByIdAndDelete(req.session.user._id)
+      await User.findByIdAndDelete(req.session.user._id)
       req.session.destroy(() => {
         res.redirect('/')
       })
@@ -137,6 +146,32 @@ router.delete('/profile', isSignedIn, async (req, res, next) => {
     return res.status(500).send('<h1>An error occurred</h1>')
   }
 })
+
+  //   const document = await PartyModel.findOneAndUpdate({
+  //     'items._id': _id
+  //  },{
+  //     $pull: {
+  //        "items": {
+  //           _id: _id
+  //        }
+  //     }
+  //  },
+
+  //   const userInDatabase = await User.findOne({ username: req.body.username })
+
+  //   if (!userInDatabase) return next()
+
+  //   if (userInDatabase._id.equals(req.session.user._id)) {
+  //     const deletedUser = await User.findByIdAndDelete(req.session.user._id)
+  //     req.session.destroy(() => {
+  //       res.redirect('/')
+  //     })
+  //   }
+//   } catch (error) {
+//     console.log(error)
+//     return res.status(500).send('<h1>An error occurred</h1>')
+//   }
+// })
 
 // ! Export the Router
 module.exports = router

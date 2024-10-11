@@ -71,6 +71,7 @@ app.get('/', async (req, res) => {
       cities,
       selectedCity: city,
     })
+    
   } catch (error) {
     console.log(error)
     return res.status(500).send('<h1>An error occurred.</h1>')
