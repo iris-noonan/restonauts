@@ -30,7 +30,7 @@
     <div class="card-row">
       <% restaurants.forEach(restaurant => { %>
           <a class="restaurant-item" href="/restaurants/<%=restaurant._id%>">
-            <div class="card" style="background: url(<%=restaurant.photo%>); background-size: cover;">
+            <div class="card" style="background-image: linear-gradient(to bottom,  rgba(0, 0, 0, 0.73), rgba(0, 0, 0, 0.361) 30%, rgba(255, 255, 255, 0) 40%), url(<%=restaurant.photo%>); background-size: cover;">
               <div class="card-name"><%= restaurant.name %></div>
               <div class="card-rating">
                 <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
