@@ -66,7 +66,6 @@
               <% if (user && rating.user._id.equals(user._id)) { %>
                 <form class="form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
                     <label for="score">Score:</label>
-                    <input type="text" name="score" id="score" value="<%= rating.score %>" />
                     <span class="star-rating star-5">
                         <input type="radio" id="1" name="score" <% if (rating.score === 1) { %>checked<% } %> value="1"><i></i>
                         <input type="radio" id="2" name="score" <% if (rating.score === 2) { %>checked<% } %> value="2"><i></i>
