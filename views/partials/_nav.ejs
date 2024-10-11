@@ -1,18 +1,18 @@
 <header class="header">
-    <div>
-      <a href="/">Restaurants</a>
+    <div class="header-left">
+      <a class="header-links" href="/">Restaurants</a>
     <% if (user?.role === 'admin') { %>
-        <a href="/restaurants/new">Add Restaurant</a>
+        <a class="header-links" href="/restaurants/new">Add Restaurant</a>
     <% } %>
     </div>
-    <div>
+    <div class="header-right">
 
       <% if (user) { %>
-        <a href="/auth/sign-out">Logout</a>
-        <a href="/auth/profile"><%= user.username %></a>
+        <a class="header-links" href="/auth/sign-out">Logout</a>
+        <a class="header-links" href="/auth/profile"><%= user.username %></a>
       <% } else { %>
-        <a href="/auth/sign-in">Sign in</a>
-        <a href="/auth/sign-up">Sign up</a>
+        <a class="header-links" href="/auth/sign-in">Sign in</a>
+        <a class="header-links" href="/auth/sign-up">Sign up</a>
       <% } %>
     </div>
-  </header>
+</header>
