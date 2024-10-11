@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restonauts | The homeworld of restaurant explorers</title>
-    <link rel="stylesheet" href="/stylesheets/style.css"></link>
-  </head>
-  <body>
-    <%- include('./partials/_nav') %>
-    <h1 class="restaurants-title">RESTONAUTS</h1>
-    <h2>The homeworld of restaurant explorers</h2>
-    <h3>Countries</h3>
-    <div class="button-row">
-      <% countries.forEach(country => { %>
-        <a class="button <% if(selectedCountry === country) {%>active<% } %>" href="/?country=<%= country %>">
-          <%= country %>
-        </a>
-      <% }) %>
-    </div>
-    <% if (cities.length !== 0) { %><h3>Cities</h3><% } %>
-    <div class="button-row">
-      <% cities.forEach(city => { %>
-        <a class="button <% if(selectedCity === city) {%>active<% } %>" href="/?country=<%= selectedCountry %>&city=<%= city %>">
-          <%= city %>
-        </a>
-      <% }) %>
-    </div>
-    <h3>Restaurants</h3>
-    <div class="card-row">
-      <% restaurants.forEach(restaurant => { %>
-          <a class="restaurant-item" href="/restaurants/<%=restaurant._id%>">
-            <div class="card" title="Photo of <%= restaurant.name %> restaurant" style="background-image: linear-gradient(to bottom,  rgba(0, 0, 0, 0.73), rgba(0, 0, 0, 0.361) 30%, rgba(255, 255, 255, 0) 40%), url(<%=restaurant.photo%>); background-size: cover;">
-              <div class="card-name"><%= restaurant.name %></div>
-              <div class="card-rating">
-                <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
-                <% const length = restaurant.ratings.length %>
-                <% const average = total/length || 0 %>
-                <% const roundedScore = Math.floor(average) %>
-                <span class="star-rating-show star-5">
-                    <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
-                    <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
-                    <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
-                    <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
-                    <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
-                </span>
-              </div>
-            </div>
-          </a>
-      <% }) %>
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restonauts | The homeworld of restaurant explorers</title>
+  <link rel="stylesheet" href="/stylesheets/style.css"></link>
+</head>
+<body>
+  <%- include('./partials/_nav') %>
+  <h1 class="restaurants-title">RESTONAUTS</h1>
+  <h2>The homeworld of restaurant explorers</h2>
+  <h3>Countries</h3>
+  <div class="button-row">
+    <% countries.forEach(country => { %>
+      <a class="button <% if(selectedCountry === country) {%>active<% } %>" href="/?country=<%= country %>">
+        <%= country %>
+      </a>
+    <% }) %>
+  </div>
+  <% if (cities.length !== 0) { %><h3>Cities</h3><% } %>
+  <div class="button-row">
+    <% cities.forEach(city => { %>
+      <a class="button <% if(selectedCity === city) {%>active<% } %>" href="/?country=<%= selectedCountry %>&city=<%= city %>">
+        <%= city %>
+      </a>
+    <% }) %>
+  </div>
+  <h3>Restaurants</h3>
+  <div class="card-row">
+    <% restaurants.forEach(restaurant => { %>
+      <a class="restaurant-item" href="/restaurants/<%=restaurant._id%>">
+        <div class="card" title="Photo of <%= restaurant.name %> restaurant" style="background-image: linear-gradient(to bottom,  rgba(0, 0, 0, 0.73), rgba(0, 0, 0, 0.361) 30%, rgba(255, 255, 255, 0) 40%), url(<%=restaurant.photo%>); background-size: cover;">
+          <div class="card-name"><%= restaurant.name %></div>
+          <div class="card-rating">
+            <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
+            <% const length = restaurant.ratings.length %>
+            <% const average = total/length || 0 %>
+            <% const roundedScore = Math.floor(average) %>
+            <span class="star-rating-show star-5">
+                <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
+                <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
+                <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
+                <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
+                <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
+            </span>
+          </div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</body>
 </html>

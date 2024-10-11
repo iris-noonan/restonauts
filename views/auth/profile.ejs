@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
-    <link rel="stylesheet" href="/stylesheets/style.css"></link>
-  </head>
-  <body>
-    <%- include('../partials/_nav') %>
-    <h1>Profile</h1>
-    <form class="form-auth" action="/auth/profile?_method=PUT" method="POST">
-        <h2>Username: <%= user.username %></h2>
-        <input type="hidden" id="username" name="username" value="<%= user.username %>">
-        <label for="name">Current Password:</label>
-        <input type="password" name="currentPassword" id="currentPassword" />
-        <label for="name">New Password:</label>
-        <input type="password" name="newPassword" id="newPassword" />
-        <label for="name">Confirm New Password:</label>
-        <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" />
-    
-        <button class="btn auth-button" type="submit">Save</button>
-    </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="/stylesheets/style.css"></link>
+</head>
+<body>
+  <%- include('../partials/_nav') %>
+  <h1>Profile</h1>
+  <form class="form-auth" action="/auth/profile?_method=PUT" method="POST">
+    <h2>Username: <%= user.username %></h2>
+    <input type="hidden" id="username" name="username" value="<%= user.username %>">
+    <label for="name">Current Password:</label>
+    <input type="password" name="currentPassword" id="currentPassword" />
+    <label for="name">New Password:</label>
+    <input type="password" name="newPassword" id="newPassword" />
+    <label for="name">Confirm New Password:</label>
+    <input type="password" name="newPasswordConfirm" id="newPasswordConfirm" />
 
-    <!-- Form to delete user -->
-    <form action="/auth/profile?_method=DELETE" method="POST">
-        <input type="hidden" id="username" name="username" value="<%= user.username %>">
-        <button class="btn delete" type="submit">Delete Account</button>
-    </form>
-  </body>
+    <button class="btn auth-button" type="submit">Save</button>
+  </form>
+
+  <!-- Form to delete user -->
+  <form action="/auth/profile?_method=DELETE" method="POST">
+      <input type="hidden" id="username" name="username" value="<%= user.username %>">
+      <button class="btn delete" type="submit">Delete Account</button>
+  </form>
+</body>
 </html>

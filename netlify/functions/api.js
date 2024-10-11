@@ -84,14 +84,14 @@ app.use('/auth', authController)
 
 // ! -- Server Connections
 const startServers = async () => {
-    try {
-        // Database Connection
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
+  try {
+    // Database Connection
+    await mongoose.connect(process.env.MONGODB_URI)
+    console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
 
-    } catch (error) {
-        console.log(error)
-    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 startServers()

@@ -17,8 +17,8 @@ const isSignedIn = require('../middleware/is-signed-in.js')
 // Method: GET
 // Path: /auth/sign-up
 router.get('/sign-up', (req, res) => {
-    res.render('auth/sign-up.ejs')
-  })
+  res.render('auth/sign-up.ejs')
+})
 
 // * -- Create User
 router.post('/sign-up', async (req, res) => {

@@ -84,17 +84,17 @@ app.use('/auth', authController)
 
 // ! -- Server Connections
 const startServers = async () => {
-    try {
-        // Database Connection
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
-        // Server Connection
-        app.listen(port, () => {
-            console.log(`🚀 Sever up and running on port ${port}`)
-        })
-    } catch (error) {
-        console.log(error)
-    }
+  try {
+    // Database Connection
+    await mongoose.connect(process.env.MONGODB_URI)
+    console.log(`🔒 Connected to MongoDB ${mongoose.connection.name}.`)
+    // Server Connection
+    app.listen(port, () => {
+      console.log(`🚀 Sever up and running on port ${port}`)
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 startServers()

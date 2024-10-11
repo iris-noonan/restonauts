@@ -1,137 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= restaurant.name %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
-  </head>
-  <body>
-    <%- include('../partials/_nav') %>
-    <main class="page-restaurant">
-      <% if (user !== null && restaurant.owner._id.equals(user._id)) { %>
-        <div class="restaurant-btns">
-          <!-- Form to delete restaurant -->
-          <form class="btn-form" action="/restaurants/<%= restaurant._id %>?_method=DELETE" method="POST">
-            <button class="btn delete" type="submit">Delete <%= restaurant.name %></button>
-          </form>
-    
-          <!-- Link to edit form -->
-          <a class="btn edit" href="/restaurants/<%= restaurant._id %>/edit">Edit <%= restaurant.name %></a>
-        </div>
-      <% } %>
-      <h1><%= restaurant.name %></h1>
-      <h3><%= restaurant.address %></h3>
-      <div class="restaurant-detailis">
-        <img class="restaurant-photo" src="<%= restaurant.photo %>" width="440px" alt="Photo of <%= restaurant.name %> restaurant" />
-        <div class="restaurant-description">
-          <div class="rating">
-            <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
-            <% const length = restaurant.ratings.length %>
-            <% const average = total/length || 0 %>
-            <% const roundedScore = Math.floor(average) %>
-            <span class="star-rating-show star-5">
-              <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
-              <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
-              <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
-              <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
-              <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
-            </span>
-            <br />
-            <%= length %> reviews
-          </div>
-          <h4>Description:</h4>
-          <p><%= restaurant.description %></p>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= restaurant.name %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <%- include('../partials/_nav') %>
+  <main class="page-restaurant">
+    <% if (user !== null && restaurant.owner._id.equals(user._id)) { %>
+      <div class="restaurant-btns">
+        <!-- Form to delete restaurant -->
+        <form class="btn-form" action="/restaurants/<%= restaurant._id %>?_method=DELETE" method="POST">
+          <button class="btn delete" type="submit">Delete <%= restaurant.name %></button>
+        </form>
+  
+        <!-- Link to edit form -->
+        <a class="btn edit" href="/restaurants/<%= restaurant._id %>/edit">Edit <%= restaurant.name %></a>
       </div>
+    <% } %>
+    <h1><%= restaurant.name %></h1>
+    <h3><%= restaurant.address %></h3>
+    <div class="restaurant-detailis">
+      <img class="restaurant-photo" src="<%= restaurant.photo %>" width="440px" alt="Photo of <%= restaurant.name %> restaurant" />
+      <div class="restaurant-description">
+        <div class="rating">
+          <% const total = restaurant.ratings.reduce((accumulator, rating) => accumulator + rating.score, 0,) %>
+          <% const length = restaurant.ratings.length %>
+          <% const average = total/length || 0 %>
+          <% const roundedScore = Math.floor(average) %>
+          <span class="star-rating-show star-5">
+            <i class="<% if (roundedScore === 1) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 2) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 3) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 4) { %>checked<% } %>"></i>
+            <i class="<% if (roundedScore === 5) { %>checked<% } %>"></i>
+          </span>
+          <br />
+          <%= length %> reviews
+        </div>
+        <h4>Description:</h4>
+        <p><%= restaurant.description %></p>
+      </div>
+    </div>
 
-      <div class="restaurant-ratings">
-        <!-- rating Section -->
-        <h2>Ratings</h2>
+    <div class="restaurant-ratings">
+      <!-- rating Section -->
+      <h2>Ratings</h2>
 
-        <!-- Display ratings -->
-        <% if (restaurant.ratings.length > 0) { %>
-          <div class="ratings">
-            <% restaurant.ratings.forEach(rating => { %>
-              <% if (!rating.user._id.equals(user?._id)) { %>
-                <div class="rating">
-                  <strong class="rating-title"><%= rating.user.username %></strong>
-                  <span class="star-rating-show star-5">
-                      <i class="<% if (rating.score === 1) { %>checked<% } %>"></i>
-                      <i class="<% if (rating.score === 2) { %>checked<% } %>"></i>
-                      <i class="<% if (rating.score === 3) { %>checked<% } %>"></i>
-                      <i class="<% if (rating.score === 4) { %>checked<% } %>"></i>
-                      <i class="<% if (rating.score === 5) { %>checked<% } %>"></i>
-                  </span>
-                  <br />
-                  <label for="comment">Comment:</label>
-                  <br />
-                  <%= rating.comment %>
-                  <br />
-                  <small><%= new Date(rating.createdAt).toDateString() %></small>
-                  <br />
-                </div>
-              <% } %>
+      <!-- Display ratings -->
+      <% if (restaurant.ratings.length > 0) { %>
+        <div class="ratings">
+          <% restaurant.ratings.forEach(rating => { %>
+            <% if (!rating.user._id.equals(user?._id)) { %>
               <div class="rating">
-                <% if (user && user.role !== 'admin' && rating.user._id.equals(user._id)) { %>
-                  <div class="rating-form-button">
-                    <form action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=DELETE" method="POST">
-                      <button class="btn btn-trash" type="submit">🗑️</button>
-                    </form>
-                  </div>
-                  <form class="rating-form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
-                      <div class="rating-form-element">
-                        <label for="score">Score:</label>
-                        <span class="star-rating star-5">
-                            <input type="radio" id="1" name="score" <% if (rating.score === 1) { %>checked<% } %> value="1"><i></i>
-                            <input type="radio" id="2" name="score" <% if (rating.score === 2) { %>checked<% } %> value="2"><i></i>
-                            <input type="radio" id="3" name="score" <% if (rating.score === 3) { %>checked<% } %> value="3"><i></i>
-                            <input type="radio" id="4" name="score" <% if (rating.score === 4) { %>checked<% } %> value="4"><i></i>
-                            <input type="radio" id="5" name="score" <% if (rating.score === 5) { %>checked<% } %> value="5"><i></i>
-                        </span>
-                      </div>
-                      <div class="rating-form-element">
-                        <label for="name">Comment:</label>
-                        <input type="text" name="comment" id="comment" value="<%= rating.comment %>" />
-                      </div>
-                      <div class="rating-form-button">
-                        <button class="btn" type="submit">Edit</button>
-                      </div>
-                  </form>
-                <% } %>
+                <strong class="rating-title"><%= rating.user.username %></strong>
+                <span class="star-rating-show star-5">
+                  <i class="<% if (rating.score === 1) { %>checked<% } %>"></i>
+                  <i class="<% if (rating.score === 2) { %>checked<% } %>"></i>
+                  <i class="<% if (rating.score === 3) { %>checked<% } %>"></i>
+                  <i class="<% if (rating.score === 4) { %>checked<% } %>"></i>
+                  <i class="<% if (rating.score === 5) { %>checked<% } %>"></i>
+                </span>
+                <br />
+                <label for="comment">Comment:</label>
+                <br />
+                <%= rating.comment %>
+                <br />
+                <small><%= new Date(rating.createdAt).toDateString() %></small>
+                <br />
               </div>
-            <% }) %>
-          </div>
-        <% } else { %>
-          <p>There are no ratings yet.</p>
-        <% } %>
+            <% } %>
+            <div class="rating">
+              <% if (user && user.role !== 'admin' && rating.user._id.equals(user._id)) { %>
+                <div class="rating-form-button">
+                  <form action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-trash" type="submit">🗑️</button>
+                  </form>
+                </div>
+                <form class="rating-form" action="/restaurants/<%= restaurant._id %>/ratings/<%= rating._id %>?_method=PUT" method="POST">
+                  <div class="rating-form-element">
+                    <label for="score">Score:</label>
+                    <span class="star-rating star-5">
+                      <input type="radio" id="1" name="score" <% if (rating.score === 1) { %>checked<% } %> value="1"><i></i>
+                      <input type="radio" id="2" name="score" <% if (rating.score === 2) { %>checked<% } %> value="2"><i></i>
+                      <input type="radio" id="3" name="score" <% if (rating.score === 3) { %>checked<% } %> value="3"><i></i>
+                      <input type="radio" id="4" name="score" <% if (rating.score === 4) { %>checked<% } %> value="4"><i></i>
+                      <input type="radio" id="5" name="score" <% if (rating.score === 5) { %>checked<% } %> value="5"><i></i>
+                    </span>
+                  </div>
+                  <div class="rating-form-element">
+                    <label for="name">Comment:</label>
+                    <input type="text" name="comment" id="comment" value="<%= rating.comment %>" />
+                  </div>
+                  <div class="rating-form-button">
+                    <button class="btn" type="submit">Edit</button>
+                  </div>
+                </form>
+              <% } %>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <p>There are no ratings yet.</p>
+      <% } %>
 
-        <!-- Create Rating -->
-        <% if (user && user.role !== 'admin') { %>
-          <form class="rating-form" action="/restaurants/<%= restaurant._id %>/ratings" method="POST">
-            <div class="rating-form-element">
-              <label for="score">Score</label>
-              <span class="star-rating star-5">
-                <input type="radio" id="1" name="score" value="1"><i></i>
-                <input type="radio" id="2" name="score" value="2"><i></i>
-                <input type="radio" id="3" name="score" value="3"><i></i>
-                <input type="radio" id="4" name="score" value="4"><i></i>
-                <input type="radio" id="5" name="score" value="5"><i></i>
-              </span>
-            </div>
-            <div class="rating-form-element">
-              <label for="comment">Comment</label>
-              <input type="text" name="comment" id="comment">
-            </div>
-            <div class="rating-form-button">
-              <button class="btn" type="submit">Add Rating</button>
-            </div>
-          </form>
-        <% } else { %>
-          <p><a class="btn" href="/auth/sign-in">Sign in</a></p>
-          <p>To leave a rating</p>
-        <% } %>
-      </div>
-    </main>
-  </body>
+      <!-- Create Rating -->
+      <% if (user && user.role !== 'admin') { %>
+        <form class="rating-form" action="/restaurants/<%= restaurant._id %>/ratings" method="POST">
+          <div class="rating-form-element">
+            <label for="score">Score</label>
+            <span class="star-rating star-5">
+              <input type="radio" id="1" name="score" value="1"><i></i>
+              <input type="radio" id="2" name="score" value="2"><i></i>
+              <input type="radio" id="3" name="score" value="3"><i></i>
+              <input type="radio" id="4" name="score" value="4"><i></i>
+              <input type="radio" id="5" name="score" value="5"><i></i>
+            </span>
+          </div>
+          <div class="rating-form-element">
+            <label for="comment">Comment</label>
+            <input type="text" name="comment" id="comment">
+          </div>
+          <div class="rating-form-button">
+            <button class="btn" type="submit">Add Rating</button>
+          </div>
+        </form>
+      <% } else { %>
+        <p><a class="btn" href="/auth/sign-in">Sign in</a></p>
+        <p>To leave a rating</p>
+      <% } %>
+    </div>
+  </main>
+</body>
 </html>

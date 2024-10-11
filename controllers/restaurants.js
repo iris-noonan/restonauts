@@ -145,26 +145,26 @@ router.post('/:restaurantId/ratings', async (req, res, next) => {
 
 // * -- Edit Rating
 router.put('/:restaurantId/ratings/:ratingId', isSignedIn, async (req, res, next) => {
-    try {
-      if (req.session.user.role === 'admin') return next()
+  try {
+    if (req.session.user.role === 'admin') return next()
 
-      const restaurantToUpdate = await Restaurant.findById(req.params.restaurantId)
-      if (!restaurantToUpdate) return next()
+    const restaurantToUpdate = await Restaurant.findById(req.params.restaurantId)
+    if (!restaurantToUpdate) return next()
 
-      // Locate rating to update
-      const ratingToUpdate = restaurantToUpdate.ratings.id(req.params.ratingId)
-      if (!ratingToUpdate) return next()
+    // Locate rating to update
+    const ratingToUpdate = restaurantToUpdate.ratings.id(req.params.ratingId)
+    if (!ratingToUpdate) return next()
 
-      Object.assign(ratingToUpdate, req.body)
+    Object.assign(ratingToUpdate, req.body)
 
-      restaurantToUpdate.save()
-      return res.redirect(`/restaurants/${req.params.restaurantId}`)
+    restaurantToUpdate.save()
+    return res.redirect(`/restaurants/${req.params.restaurantId}`)
 
-    } catch (error) {
-      console.log(error)
-      return res.status(500).send('<h1>An error occurred.</h1>')
-    }
-  })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).send('<h1>An error occurred.</h1>')
+  }
+})
 
 // * -- Delete Rating
 router.delete('/:restaurantId/ratings/:ratingId', isSignedIn, async (req, res, next) => {
@@ -194,6 +194,5 @@ router.delete('/:restaurantId/ratings/:ratingId', isSignedIn, async (req, res, n
     return res.status(500).send('<h1>An error occurred</h1>')
   }
 })
-
 
 module.exports = router

@@ -9,36 +9,36 @@ const ratingSchema = new mongoose.Schema({
 })
 
 const restaurantSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    photo: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    ratings: [ratingSchema]
-  }, {
-    timestamps: true
-  });
-  
-  const Restaurant = mongoose.model("Restaurant", restaurantSchema);
-  
-  module.exports = Restaurant;
+  name: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  photo: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  ratings: [ratingSchema]
+}, {
+  timestamps: true
+});
+
+const Restaurant = mongoose.model("Restaurant", restaurantSchema);
+
+module.exports = Restaurant;
