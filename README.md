@@ -170,3 +170,6 @@ No known bugs. Just a few areas where error handling doesn't show a message but 
 ## Attributions
 
 * svgrepo.com for Star SVG
+* freepik.com for Astronaut image
+* Google Image Search for some restaurant images
+* unsplash.com for some restaurant images
